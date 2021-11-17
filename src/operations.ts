@@ -1,5 +1,5 @@
 import { chain, Chainable } from './Chainable';
-import { HasSerialize } from './Serializable';
+import { ScadSerializeMethod } from './Serializable';
 
 interface IOperation<Name extends string> {
   type: Name;
@@ -28,7 +28,7 @@ const operation =
   >(
     type: Name
   ) =>
-  (...children: HasSerialize[]) =>
+  (...children: ScadSerializeMethod[]) =>
     chain({ type, children } as Type);
 
 export const union = operation('union');
@@ -37,5 +37,5 @@ export const intersection = operation('intersection');
 export const hull = operation('hull');
 export const minkowski = operation('minkowski');
 
-export const chain_hull = (...items: HasSerialize[]) =>
+export const chain_hull = (...items: ScadSerializeMethod[]) =>
   union(...items.map((cur, i, arr) => hull(cur, arr[i + 1])).slice(0, -1));
