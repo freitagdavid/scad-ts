@@ -1,11 +1,19 @@
-import type { Modifier } from './modifiers';
-import type { Operation } from './operations';
-import type { Shape } from './shapes/index';
-import type { Transformation } from './transformations/index';
-
-export type Scad = Modifier | Operation | Shape | Transformation;
-
-export { isScadChainable } from './Chainable';
 export * from './operations';
-export { isScadSerializable } from './Serializable';
 export * from './shapes/index';
+export * from './types/Scad';
+export * from './types/ScadColor';
+export * from './types/ScadNumber';
+export * from './types/ScadRoundingVariables';
+export * from './types/ScadStatement';
+export * from './types/ScadVariable';
+export * from './types/undef';
+export * from './types/Vector';
+export {
+  Chainable as ScadChainable,
+  isScadChainable,
+  ScadMethods,
+} from './util/Chainable';
+export {
+  isScadSerializable,
+  Serializable as ScadSerializable,
+} from './util/Serializable';

@@ -1,26 +1,32 @@
-import { chain, Chainable } from './Chainable';
+import { chain, Chainable } from './util/Chainable';
 
 interface IModified<Name extends string> {
   type: Name;
-  children: Chainable[];
+  children: Chainable;
 }
-
-export type Background = IModified<'%union'>;
-export type Debug = IModified<'#union'>;
-export type Disable = IModified<'*union'>;
-export type ShowOnly = IModified<'!union'>;
-
-export type Modifier = Disable | ShowOnly | Debug | Background;
 
 const modifier = <Name extends Modifier['type']>(type: Name) => {
   type Result = Extract<Modifier, { type: Name }>;
 
-  return function (this: Chainable, ...children: Chainable[]) {
-    return chain({ type, children: [this, ...children] } as Result);
+  return function (this: Chainable) {
+    return chain({ type, children: this } as Result);
   };
 };
 
-export const background = modifier('%union');
-export const debug = modifier('#union');
-export const disable = modifier('*union');
-export const show_only = modifier('!union');
+// https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Modifier_Characters#Background_Modifier
+export type Background = IModified<'%'>;
+export const background = modifier('%');
+
+// https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Modifier_Characters#Debug_Modifier
+export type Debug = IModified<'#'>;
+export const debug = modifier('#');
+
+// https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Modifier_Characters#Root_Modifier
+export type Root = IModified<'!'>;
+export const root = modifier('!');
+
+// https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Modifier_Characters#Disable_Modifier
+export type Disable = IModified<'*'>;
+export const disable = modifier('*');
+
+export type Modifier = Disable | Root | Debug | Background;

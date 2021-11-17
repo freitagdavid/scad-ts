@@ -30,22 +30,22 @@ describe('Scale', () => {
   it('should add scale transformation to existing object', () => {
     assert.deepEqual(square().scale([5, 2, 3]), {
       type: 'scale',
-      params: { v: [5, 2, 3] },
+      params: { v: [5, 2, 3], auto: false },
       children: [square()],
     });
     assert.deepEqual(square().scale_x(1.5), {
       type: 'scale',
-      params: { v: [1.5, 1, 1] },
+      params: { v: [1.5, 1, 1], auto: false },
       children: [square()],
     });
     assert.deepEqual(square().scale_y(2), {
       type: 'scale',
-      params: { v: [1, 2, 1] },
+      params: { v: [1, 2, 1], auto: false },
       children: [square()],
     });
     assert.deepEqual(square().scale_z(0.5), {
       type: 'scale',
-      params: { v: [1, 1, 0.5] },
+      params: { v: [1, 1, 0.5], auto: false },
       children: [square()],
     });
   });
@@ -110,7 +110,7 @@ describe('rotate', () => {
   it('should add rotate transformation to existing object', () => {
     assert.deepEqual(square().rotate([1, 0, 0]), {
       type: 'rotate',
-      params: { a: [1, 0, 0], v: 'undef' },
+      params: { a: [1, 0, 0] },
       children: [square()],
     });
     assert.deepEqual(square().rotate(90, [1, 0, 0]), {
@@ -138,16 +138,9 @@ describe('rotate', () => {
 
 describe('Radius offset', () => {
   it('should add radius_offset transformation to existing object', () => {
-    assert.deepEqual(square().radius_offset(), {
-      type: 'offset',
-      params: { r: 'undef', delta: 'undef', chamfer: 'undef' },
-      children: [square()],
-    });
-  });
-  it('should add radius_offset transformation to existing object', () => {
     assert.deepEqual(square().radius_offset(5), {
       type: 'offset',
-      params: { r: 5, delta: 'undef', chamfer: 'undef' },
+      params: { r: 5 },
       children: [square()],
     });
   });
@@ -157,17 +150,17 @@ describe('Delta offset', () => {
   it('should add delta_offset transformation to existing object', () => {
     assert.deepEqual(square().delta_offset(8), {
       type: 'offset',
-      params: { r: 'undef', delta: 8, chamfer: false },
+      params: { delta: 8, chamfer: false },
       children: [square()],
     });
     assert.deepEqual(square().delta_offset(8), {
       type: 'offset',
-      params: { r: 'undef', delta: 8, chamfer: false },
+      params: { delta: 8, chamfer: false },
       children: [square()],
     });
     assert.deepEqual(square().delta_offset(8, true), {
       type: 'offset',
-      params: { r: 'undef', delta: 8, chamfer: true },
+      params: { delta: 8, chamfer: true },
       children: [square()],
     });
   });
@@ -190,43 +183,14 @@ describe('Projection', () => {
 
 describe('Linear extrude', () => {
   it('should add linear_extrude transformation to existing object', () => {
-    assert.deepEqual(square().linear_extrude(), {
-      type: 'linear_extrude',
-      params: {
-        height: 'undef',
-        center: false,
-        convexity: 'undef',
-        twist: 'undef',
-        slices: 'undef',
-        scale: 1,
-        $fn: 20,
-      },
-      children: [square()],
-    });
     assert.deepEqual(square().linear_extrude(5), {
       type: 'linear_extrude',
-      params: {
-        height: 5,
-        center: false,
-        convexity: 'undef',
-        twist: 'undef',
-        slices: 'undef',
-        scale: 1,
-        $fn: 20,
-      },
+      params: { height: 5 },
       children: [square()],
     });
     assert.deepEqual(square().linear_extrude(5, { center: true, scale: 2 }), {
       type: 'linear_extrude',
-      params: {
-        height: 5,
-        center: true,
-        convexity: 'undef',
-        twist: 'undef',
-        slices: 'undef',
-        scale: 2,
-        $fn: 20,
-      },
+      params: { height: 5, center: true, scale: 2 },
       children: [square()],
     });
   });
@@ -236,7 +200,7 @@ describe('Rotate extrude', () => {
   it('should add linear_extrude transformation to existing object', () => {
     assert.deepEqual(square().rotate_extrude(), {
       type: 'rotate_extrude',
-      params: { angle: 360, convexity: 2, $fn: 10 },
+      params: { angle: 360 },
       children: [square()],
     });
     assert.deepEqual(square().rotate_extrude(180, { convexity: 4, $fn: 20 }), {
@@ -249,6 +213,6 @@ describe('Rotate extrude', () => {
 
 describe('Multiple transformations', () => {
   it('should allow to chain multiple transformations', () => {
-    square().translate_x(2).rotate(3);
+    square().translate_x(2).rotate_x(3);
   });
 });

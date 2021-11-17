@@ -1,15 +1,14 @@
-import * as modifiers from './modifiers';
-import type { Operation } from './operations';
+import * as modifiers from '../modifiers';
+import * as transformations from '../transformations/index';
+import { Scad } from '../types/Scad';
 import { ScadSerializeMethod, serializable } from './Serializable';
-import type { Shape } from './shapes/index';
-import * as transformations from './transformations/index';
 
 // this has to be an interface because `type` would be duplicated in .d.ts files
 export interface ScadMethods extends ScadSerializeMethod {
   background: typeof modifiers.background;
   debug: typeof modifiers.debug;
   disable: typeof modifiers.disable;
-  show_only: typeof modifiers.show_only;
+  root: typeof modifiers.root;
   color: typeof transformations.color;
   delta_offset: typeof transformations.delta_offset;
   linear_extrude: typeof transformations.linear_extrude;
@@ -35,8 +34,7 @@ export interface ScadMethods extends ScadSerializeMethod {
   translate_z: typeof transformations.translate_z;
 }
 
-export type Chainable = ScadMethods &
-  (Operation | Shape | transformations.Transformation);
+export type Chainable = Scad & ScadMethods;
 
 const proto = serializable({
   ...modifiers,

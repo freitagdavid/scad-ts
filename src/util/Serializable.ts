@@ -1,15 +1,11 @@
-import type { Modifier } from './modifiers';
-import type { Operation } from './operations';
+import { Scad } from '../types/Scad';
 import { serialize } from './serialize';
-import type { Shape } from './shapes/index';
-import type { Transformation } from './transformations/index';
 
 export interface ScadSerializeMethod {
   serialize: typeof serialize;
 }
 
-export type Serializable = ScadSerializeMethod &
-  (Modifier | Operation | Shape | Transformation);
+export type Serializable = Scad & ScadSerializeMethod;
 
 const proto = { serialize };
 

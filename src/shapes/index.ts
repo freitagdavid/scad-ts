@@ -1,10 +1,10 @@
-import type { Circle } from './circle';
-import type { Cube } from './cube';
-import type { Cylinder } from './cylinder';
-import type { Polygon } from './polygon';
-import type { Polyhedron } from './polyhedron';
-import type { Sphere } from './sphere';
-import type { Square } from './square';
+import type { Circle } from './2d/circle';
+import type { Polygon } from './2d/polygon';
+import type { Square } from './2d/square';
+import type { Cube } from './3d/cube';
+import type { Cylinder } from './3d/cylinder';
+import type { Polyhedron } from './3d/polyhedron';
+import type { Sphere } from './3d/sphere';
 
 export type Shape =
   | Circle
@@ -15,11 +15,12 @@ export type Shape =
   | Sphere
   | Square;
 
-export * from './circle';
-export * from './cube';
-export * from './cylinder';
-export * from './polygon';
-export * from './polyhedron';
-export * from './rounded';
-export * from './sphere';
-export * from './square';
+export * from './2d/circle';
+export * from './2d/polygon';
+export * from './2d/square';
+export * from './3d/cube';
+export * from './3d/cylinder';
+export * from './3d/polyhedron';
+export * from './3d/sphere';
+export * from './custom/rounded_cube';
+export * from './custom/rounded_square';

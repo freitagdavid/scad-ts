@@ -36,21 +36,21 @@ describe('Square', () => {
   it('should create a square with default size', () => {
     assert.deepEqual(square(), {
       type: 'square',
-      params: { size: [1, 1], center: true },
+      params: { size: [1, 1], center: false },
     });
   });
   it('should create a square with defined size', () => {
     assert.deepEqual(square(4), {
       type: 'square',
-      params: { size: 4, center: true },
+      params: { size: 4, center: false },
     });
     assert.deepEqual(square([8, 3]), {
       type: 'square',
-      params: { size: [8, 3], center: true },
+      params: { size: [8, 3], center: false },
     });
   });
   it('should create a square with defined size and not centered', () => {
-    assert.deepEqual(square(8, { center: false }), {
+    assert.deepEqual(square(8, false), {
       type: 'square',
       params: { size: 8, center: false },
     });
@@ -171,21 +171,21 @@ describe('Cube', () => {
   it('should create a cube with default size', () => {
     assert.deepEqual(cube(), {
       type: 'cube',
-      params: { size: [1, 1, 1], center: true },
+      params: { size: [1, 1, 1], center: false },
     });
   });
   it('should create a cube with defined size', () => {
     assert.deepEqual(cube(4), {
       type: 'cube',
-      params: { size: 4, center: true },
+      params: { size: 4, center: false },
     });
     assert.deepEqual(cube([4, 5, 6]), {
       type: 'cube',
-      params: { size: [4, 5, 6], center: true },
+      params: { size: [4, 5, 6], center: false },
     });
   });
   it('should create a cube with defined size not centered', () => {
-    assert.deepEqual(cube(4, { center: false }), {
+    assert.deepEqual(cube(4, false), {
       type: 'cube',
       params: { size: 4, center: false },
     });
@@ -196,29 +196,29 @@ describe('Cylinder', () => {
   it('should create a cylinder with default size', () => {
     assert.deepEqual(cylinder(), {
       type: 'cylinder',
-      params: { r: 1, h: 1, center: true },
+      params: { r: 1, h: 1 },
     });
   });
   it('should create a cylinder with defined size', () => {
     assert.deepEqual(cylinder(5, 4), {
       type: 'cylinder',
-      params: { h: 5, r: 4, center: true },
+      params: { h: 5, r: 4 },
     });
     assert.deepEqual(cylinder(5, [3, 5]), {
       type: 'cylinder',
-      params: { h: 5, r1: 3, r2: 5, center: true },
+      params: { h: 5, r1: 3, r2: 5 },
     });
     assert.deepEqual(cylinder(5, [3, 5], { $fa: 4 }), {
       type: 'cylinder',
-      params: { h: 5, r1: 3, r2: 5, center: true, $fa: 4 },
+      params: { h: 5, r1: 3, r2: 5, $fa: 4 },
     });
     assert.deepEqual(cylinder(5, [3, 5], { $fa: 3, $fn: 4, $fs: 5 }), {
       type: 'cylinder',
-      params: { h: 5, r1: 3, r2: 5, center: true, $fa: 3, $fn: 4, $fs: 5 },
+      params: { h: 5, r1: 3, r2: 5, $fa: 3, $fn: 4, $fs: 5 },
     });
     assert.deepEqual(cylinder(5, [3, 5], { $fa: 0, $fn: 0, $fs: 0 }), {
       type: 'cylinder',
-      params: { h: 5, r1: 3, r2: 5, center: true, $fa: 0, $fn: 0, $fs: 0 },
+      params: { h: 5, r1: 3, r2: 5, $fa: 0, $fn: 0, $fs: 0 },
     });
   });
   it('should create a cylinder with defined size and not centered', () => {
@@ -233,7 +233,7 @@ describe('Polyhedron', () => {
   it('should create a polyhedron with default values', () => {
     assert.deepEqual(polyhedron(), {
       type: 'polyhedron',
-      params: { points: 'undef', paths: 'undef', convexity: 1 },
+      params: { points: 'undef', faces: 'undef', convexity: 1 },
     });
   });
   it('should create a polyhedron with defined points', () => {
@@ -251,7 +251,7 @@ describe('Polyhedron', () => {
             [4, 5, 6],
             [6, 8, 7],
           ],
-          paths: 'undef',
+          faces: 'undef',
           convexity: 1,
         },
       }
@@ -275,7 +275,7 @@ describe('Polyhedron', () => {
             [4, 5, 6],
             [6, 8, 7],
           ],
-          paths: [0, 2, 1, 2, 0],
+          faces: [0, 2, 1, 2, 0],
           convexity: 1,
         },
       }
@@ -300,7 +300,7 @@ describe('Polyhedron', () => {
             [4, 5, 0],
             [6, 8, 0],
           ],
-          paths: [0, 2, 1, 2, 0],
+          faces: [0, 2, 1, 2, 0],
           convexity: 4,
         },
       }

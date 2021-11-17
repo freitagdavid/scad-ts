@@ -1,21 +1,23 @@
-import type { Chainable } from '../Chainable';
-import { Vector } from '../types';
+// https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#mirror
+
+import { ScadVector } from '../types/ScadVector';
+import type { Chainable } from '../util/Chainable';
 import { ITransformation, transformation } from './internals';
 
-export type Mirror = ITransformation<'mirror', { v: Vector }>;
+export type Mirror = ITransformation<'mirror', { v: ScadVector }>;
 
-export function mirror(this: Chainable, v: Vector) {
+export function mirror(this: Chainable, v: ScadVector) {
   return transformation('mirror', this, { v });
 }
 
 export function mirror_x(this: Chainable) {
-  return transformation('mirror', this, { v: [1, 0, 0] });
+  return mirror.call(this, [1, 0, 0]);
 }
 
 export function mirror_y(this: Chainable) {
-  return transformation('mirror', this, { v: [0, 1, 0] });
+  return mirror.call(this, [0, 1, 0]);
 }
 
 export function mirror_z(this: Chainable) {
-  return transformation('mirror', this, { v: [0, 0, 1] });
+  return mirror.call(this, [0, 0, 1]);
 }

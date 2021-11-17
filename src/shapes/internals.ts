@@ -1,7 +1,5 @@
-import { chain } from '../Chainable';
+import { chain } from '../util/Chainable';
 import type { Shape } from './index';
-
-export const center = true;
 
 export interface IShape<Name extends string, Params extends {}> {
   type: Name;

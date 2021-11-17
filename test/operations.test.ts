@@ -1,6 +1,5 @@
 import assert from 'assert';
 import {
-  chain_hull,
   cube,
   cylinder,
   difference,
@@ -41,16 +40,16 @@ describe('Union', () => {
       children: [cube(), sphere(), cylinder()],
     });
   });
-  it('chain_hull all aruments together', () => {
-    assert.deepEqual(chain_hull(cube(), sphere(), cylinder(), cube()), {
-      type: 'union',
-      children: [
-        { type: 'hull', children: [cube(), sphere()] },
-        { type: 'hull', children: [sphere(), cylinder()] },
-        { type: 'hull', children: [cylinder(), cube()] },
-      ],
-    });
-  });
+  // it('chain_hull all aruments together', () => {
+  //   assert.deepEqual(chain_hull(cube(), sphere(), cylinder(), cube()), {
+  //     type: 'union',
+  //     children: [
+  //       { type: 'hull', children: [cube(), sphere()] },
+  //       { type: 'hull', children: [sphere(), cylinder()] },
+  //       { type: 'hull', children: [cylinder(), cube()] },
+  //     ],
+  //   });
+  // });
   it('minkowski all aruments together', () => {
     assert.deepEqual(minkowski(cube(), sphere(), cylinder()), {
       type: 'minkowski',
