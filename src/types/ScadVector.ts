@@ -6,15 +6,25 @@ export type ScadVector3<T = ScadNumber> = readonly [T, T, T] | [T, T, T];
 export type ScadVector<T = ScadNumber> = ScadVector2<T> | ScadVector3<T>;
 
 export function isScadVector2<T = unknown>(
-  val: ScadVector2<T> | any
+  val: ScadVector2<T> | any,
+  isPlain?: (x: any) => x is T
 ): val is ScadVector2<T> {
-  return val && Array.isArray(val) && val.length === 2;
+  if (!val || !Array.isArray(val) || val.length !== 2) {
+    return false;
+  }
+
+  return !isPlain || val.every(isPlain);
 }
 
 export function isScadVector3<T = unknown>(
-  val: ScadVector3<T> | any
+  val: ScadVector3<T> | any,
+  isPlain?: (x: any) => x is T
 ): val is ScadVector3<T> {
-  return val && Array.isArray(val) && val.length === 3;
+  if (!val || !Array.isArray(val) || val.length !== 3) {
+    return false;
+  }
+
+  return !isPlain || val.every(isPlain);
 }
 
 export function isScadVector<T = unknown>(

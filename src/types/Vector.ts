@@ -9,20 +9,40 @@ export type Vector3<T = ScadNumber> =
 export type Vector<T = ScadNumber> = Vector2<T> | Vector3<T>;
 
 export function isVector2<T = unknown>(
-  val: Vector2<T> | any
+  val: Vector2<T> | any,
+  isPlain?: (x: any) => x is T
 ): val is Vector2<T> {
-  if (!val || typeof val !== 'object') return false;
-  if (Array.isArray(val) && val.length === 2) return true;
-  if ('x' in val && 'y' in val) return true;
+  if (!val || typeof val !== 'object') {
+    return false;
+  }
+
+  if (Array.isArray(val) && val.length === 2) {
+    return !isPlain || val.every(isPlain);
+  }
+
+  if ('x' in val && 'y' in val) {
+    return !isPlain || (isPlain(val.x) && isPlain(val.y));
+  }
+
   return false;
 }
 
 export function isVector3<T = unknown>(
-  val: Vector3<T> | any
+  val: Vector3<T> | any,
+  isPlain?: (x: any) => x is T
 ): val is Vector3<T> {
-  if (!val || typeof val !== 'object') return false;
-  if (Array.isArray(val) && val.length === 3) return true;
-  if ('x' in val && 'y' in val && 'z' in val) return true;
+  if (!val || typeof val !== 'object') {
+    return false;
+  }
+
+  if (Array.isArray(val) && val.length === 3) {
+    return !isPlain || val.every(isPlain);
+  }
+
+  if ('x' in val && 'y' in val && 'z' in val) {
+    return !isPlain || (isPlain(val.x) && isPlain(val.y) && isPlain(val.z));
+  }
+
   return false;
 }
 
