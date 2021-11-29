@@ -1,6 +1,6 @@
 // https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#scale
 
-import { ScadNumber } from '../types/ScadNumber';
+import { isScadNumber, ScadNumber } from '../types/ScadNumber';
 import { ScadVector, ScadVector3 } from '../types/ScadVector';
 import { Vector, Vector3 } from '../types/Vector';
 import type { Chainable } from '../util/Chainable';
@@ -12,8 +12,15 @@ export type Scale = ITransformation<
   { v: ScadVector; auto: boolean | ScadVector3<boolean> }
 >;
 
-export function scale(this: Chainable, v: Vector, auto = scale.defaultAuto) {
-  return transformation('scale', this, { v: vector(v), auto: vector3(auto) });
+export function scale(
+  this: Chainable,
+  v: Vector | ScadNumber,
+  auto = scale.defaultAuto
+) {
+  return transformation('scale', this, {
+    v: vector<ScadNumber>(v, isScadNumber),
+    auto: vector3(auto),
+  });
 }
 
 scale.defaultAuto = false as boolean | Vector3<boolean>;

@@ -1,6 +1,6 @@
 // https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Transformations#translate
 
-import { ScadNumber } from '../types/ScadNumber';
+import { isScadNumber, ScadNumber } from '../types/ScadNumber';
 import { ScadVector } from '../types/ScadVector';
 import { Vector } from '../types/Vector';
 import { Chainable } from '../util/Chainable';
@@ -9,8 +9,10 @@ import { ITransformation, transformation } from './internals';
 
 export type Translate = ITransformation<'translate', { v: ScadVector }>;
 
-export function translate(this: Chainable, v: Vector) {
-  return transformation('translate', this, { v: vector(v) });
+export function translate(this: Chainable, v: Vector | ScadNumber) {
+  return transformation('translate', this, {
+    v: vector<ScadNumber>(v, isScadNumber),
+  });
 }
 
 export function translate_x(this: Chainable, x: ScadNumber) {
