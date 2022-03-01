@@ -69,4 +69,14 @@ union() {
       `.trim()
     );
   });
+  it('should prevent invalid "auto = false" in scale', () => {
+    assert.equal(
+      cube().scale(1).serialize().trim(),
+      `
+scale(v = 1) {
+  cube(size = [1, 1, 1], center = false);
+}
+      `.trim()
+    );
+  });
 });

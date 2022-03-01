@@ -18,7 +18,9 @@ export function serialize(this: Serializable, vars: Variables = {}): string {
     .map(([a, b]) => `${a} = ${b};\n`)
     .join('');
 
-  return `${variables}${serializeRecursive(this, 0)}`;
+  const result = serializeRecursive(this, 0).replace(/, auto = false/g, '');
+
+  return `${variables}${result}`;
 }
 
 const indent = (n: number) => ' '.repeat(2 * n);
