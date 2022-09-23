@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/amatiasq/scad-ts/issues"
   },
+  "bin": {
+    "openscad": "./openscad.sh"
+  },
   "scripts": {
     "test": "jest",
     "build": "npm run build:mjs && npm run build:js",
