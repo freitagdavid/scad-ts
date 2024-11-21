@@ -24,3 +24,4 @@ export * from './3d/polyhedron';
 export * from './3d/sphere';
 export * from './custom/rounded_cube';
 export * from './custom/rounded_square';
+export * from './custom/bosl2/index';
